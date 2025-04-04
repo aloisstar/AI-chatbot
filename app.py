@@ -73,8 +73,8 @@ pdf_prompt = ChatPromptTemplate.from_template(
     """
 )
 
-# Internet Chat Prompt
-internet_prompt = ChatPromptTemplate.from_template(
+# Genearal Chat Prompt
+General_prompt = ChatPromptTemplate.from_template(
     """
     You are a helpful, respectful, and honest assistant. 
     Always answer to the best of your ability while being clear and precise.
@@ -221,7 +221,7 @@ if chat_mode == "PDF Q&A" and st.session_state.pdf_vectors:
         except Exception as e:
             st.error(f"An error occurred: {str(e)}")
 
-elif chat_mode == "Internet Chat":
+elif chat_mode == "General Chat":
     # Render existing chat history
     for chat in st.session_state.chat_history:
         with st.chat_message("user"):
@@ -235,7 +235,7 @@ elif chat_mode == "Internet Chat":
     # Process the question
     if prompt_input:
         try:
-            # Generate answer using Internet Chat mode
+            # Generate answer using General Chat mode
             with st.chat_message("user"):
                 st.write(prompt_input)
             
@@ -273,6 +273,6 @@ if st.sidebar.button("Clear Chat History"):
 st.sidebar.markdown("---")
 st.sidebar.info(
     "**Modes:**\n"
-    "- *Internet Chat*: General conversation\n"
+    "- *General Chat*: General conversation\n"
     "- *PDF Q&A*: Ask questions about uploaded PDFs"
 )
