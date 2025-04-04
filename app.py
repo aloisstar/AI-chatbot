@@ -125,7 +125,7 @@ def process_uploaded_pdfs(uploaded_files):
 # Sidebar for Mode Selection and PDF Upload
 st.sidebar.header("Chatbot Settings")
 chat_mode = st.sidebar.radio("Select Chat Mode", 
-    ["Internet Chat", "PDF Q&A"], 
+    ["General Chat", "PDF Q&A"], 
     index=0
 )
 
