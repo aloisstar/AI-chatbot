@@ -50,7 +50,7 @@ if 'pdf_vectors' not in st.session_state:
 def initialize_llms():
     return {
         'pdf': ChatGroq(groq_api_key=groq_api_key, model_name="gemma2-9b-it"),
-        'internet': ChatGroq(groq_api_key=groq_api_key, model_name="deepseek-r1-distill-qwen-32b")
+        'internet': ChatGroq(groq_api_key=groq_api_key, model_name="mistral-saba-24b")
     }
 
 llms = initialize_llms()
