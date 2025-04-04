@@ -243,7 +243,7 @@ elif chat_mode == "General Chat":
                 with st.spinner("Generating response..."):
                     # Create chat chain
                     chat_chain = llms['internet'].invoke([
-                        {"role": "system", "content": internet_prompt.format(input=prompt_input)},
+                        {"role": "system", "content": General_prompt.format(input=prompt_input)},
                         {"role": "user", "content": prompt_input}
                     ])
 
