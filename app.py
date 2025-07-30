@@ -84,43 +84,79 @@ General_prompt = ChatPromptTemplate.from_template(
 )
 
 # Define vector embedding function for uploaded PDFs
-def process_uploaded_pdfs(uploaded_files):
-    # Initialize embeddings
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+# def process_uploaded_pdfs(uploaded_files):
+#     # Initialize embeddings
+#     embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
     
-    # Dictionary to store vectors for each PDF
+#     # Dictionary to store vectors for each PDF
+#     pdf_vectors = {}
+
+#     # Load all uploaded PDFs
+#     for uploaded_file in uploaded_files:
+#         # Generate a unique filename in the temporary directory
+#         unique_filename = os.path.join(
+#             TEMP_DIR, 
+#             f"temp_{str(uuid.uuid4())}_{uploaded_file.name}"
+#         )
+        
+#         # Save the file to the temporary directory
+#         with open(unique_filename, "wb") as f:
+#             f.write(uploaded_file.read())  # Save the file locally
+        
+#         # Load and process PDF
+#         loader = PyPDFLoader(unique_filename)
+#         documents = loader.load()
+
+#         # Split documents into smaller chunks
+#         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+#         final_documents = text_splitter.split_documents(documents)
+
+#         # Create vector store for this specific PDF
+#         vectors = FAISS.from_documents(final_documents, embeddings)
+        
+#         # Store vectors with original filename for reference
+#         pdf_vectors[uploaded_file.name] = {
+#             'vectors': vectors,
+#             'temp_filename': unique_filename
+#         }
+
+#     return pdf_vectors
+import asyncio
+
+def process_uploaded_pdfs(uploaded_files):
+    try:
+        asyncio.get_running_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
+
+    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+
     pdf_vectors = {}
 
-    # Load all uploaded PDFs
     for uploaded_file in uploaded_files:
-        # Generate a unique filename in the temporary directory
         unique_filename = os.path.join(
             TEMP_DIR, 
             f"temp_{str(uuid.uuid4())}_{uploaded_file.name}"
         )
         
-        # Save the file to the temporary directory
         with open(unique_filename, "wb") as f:
-            f.write(uploaded_file.read())  # Save the file locally
-        
-        # Load and process PDF
+            f.write(uploaded_file.read())
+
         loader = PyPDFLoader(unique_filename)
         documents = loader.load()
 
-        # Split documents into smaller chunks
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         final_documents = text_splitter.split_documents(documents)
 
-        # Create vector store for this specific PDF
         vectors = FAISS.from_documents(final_documents, embeddings)
-        
-        # Store vectors with original filename for reference
+
         pdf_vectors[uploaded_file.name] = {
             'vectors': vectors,
             'temp_filename': unique_filename
         }
 
     return pdf_vectors
+
 
 # Sidebar for Mode Selection and PDF Upload
 st.sidebar.header("Chatbot Settings")
