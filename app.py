@@ -123,9 +123,9 @@ General_prompt = ChatPromptTemplate.from_template(
 #     return pdf_vectors
 import asyncio
 
-def batch_documents(docs, batch_size=100):
-    for i in range(0, len(docs), batch_size):
-        yield docs[i:i + batch_size]
+# def batch_documents(docs, batch_size=100):
+#     for i in range(0, len(docs), batch_size):
+#         yield docs[i:i + batch_size]
 
 def process_uploaded_pdfs(uploaded_files):
     try:
@@ -152,28 +152,28 @@ def process_uploaded_pdfs(uploaded_files):
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         final_documents = text_splitter.split_documents(documents)
 
-    #     vectors = FAISS.from_documents(final_documents, embeddings)
-
-    #     pdf_vectors[uploaded_file.name] = {
-    #         'vectors': vectors,
-    #         'temp_filename': unique_filename
-    #     }
-
-    # return pdf_vectors
-        vectors = None
-        for batch in batch_documents(final_documents, batch_size=100):
-            if vectors is None:
-                vectors = FAISS.from_documents(batch, embeddings)
-            else:
-                vectors.add_documents(batch)
+        vectors = FAISS.from_documents(final_documents, embeddings)
 
         pdf_vectors[uploaded_file.name] = {
-            "vectors": vectors,
-            "temp_filename": unique_filename,
-            "num_chunks": len(final_documents)
+            'vectors': vectors,
+            'temp_filename': unique_filename
         }
 
     return pdf_vectors
+    #     vectors = None
+    #     for batch in batch_documents(final_documents, batch_size=100):
+    #         if vectors is None:
+    #             vectors = FAISS.from_documents(batch, embeddings)
+    #         else:
+    #             vectors.add_documents(batch)
+
+    #     pdf_vectors[uploaded_file.name] = {
+    #         "vectors": vectors,
+    #         "temp_filename": unique_filename,
+    #         "num_chunks": len(final_documents)
+    #     }
+
+    # return pdf_vectors
 
 
 # Sidebar for Mode Selection and PDF Upload
