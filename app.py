@@ -50,7 +50,7 @@ if 'pdf_vectors' not in st.session_state:
 @st.cache_resource
 def initialize_llms():
     return {
-        'pdf': ChatGroq(groq_api_key=groq_api_key, model_name="gemma2-9b-it"),
+        'pdf': ChatGroq(groq_api_key=groq_api_key, model_name="llama3-8b-8192"),
         'internet': ChatGroq(groq_api_key=groq_api_key, model_name="llama-3.3-70b-versatile")
     }
 
