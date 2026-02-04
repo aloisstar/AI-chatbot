@@ -5,14 +5,25 @@ langchain-community==0.1.16
 langchain-text-splitters==0.1.5
 
 # LLM & embeddings
-langchain-groq
-langchain-google-genai
-groq
+#langchain-groq
+#langchain-google-genai
+#groq
 
 # Vector DB & PDF
-faiss-cpu
-pypdf
-PyPDF2
+#faiss-cpu
+#pypdf
+#PyPDF2
 
 # Utils
+#python-dotenv
+#####################################
+faiss-cpu
+groq
+langchain-groq
+PyPDF2
+langchain_google_genai
+langchain
+streamlit
+langchain_community
 python-dotenv
+pypdf
