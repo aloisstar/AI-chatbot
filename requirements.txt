@@ -1,10 +1,18 @@
-faiss-cpu
-groq
+# LangChain (version-pinned and compatible)
+langchain==0.1.16
+langchain-core==0.1.42
+langchain-community==0.1.16
+langchain-text-splitters==0.1.5
+
+# LLM & embeddings
 langchain-groq
-PyPDF2
-langchain_google_genai
-langchain
-streamlit
-langchain_community
-python-dotenv
+langchain-google-genai
+groq
+
+# Vector DB & PDF
+faiss-cpu
 pypdf
+PyPDF2
+
+# Utils
+python-dotenv
