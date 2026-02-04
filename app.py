@@ -149,8 +149,8 @@ def process_uploaded_pdfs(uploaded_files):
         loader = PyPDFLoader(unique_filename)
         documents = loader.load()
 
-    #     text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
-    #     final_documents = text_splitter.split_documents(documents)
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+        final_documents = text_splitter.split_documents(documents)
 
     #     vectors = FAISS.from_documents(final_documents, embeddings)
 
