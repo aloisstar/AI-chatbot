@@ -2,6 +2,7 @@ import os
 import tempfile
 import shutil
 import streamlit as st
+from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain.chains.combine_documents import create_stuff_documents_chain
@@ -133,7 +134,9 @@ def process_uploaded_pdfs(uploaded_files):
     except RuntimeError:
         asyncio.set_event_loop(asyncio.new_event_loop())
 
-    embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    # embeddings = GoogleGenerativeAIEmbeddings(model="models/embedding-001")
+    embeddings = HuggingFaceEmbeddings(
+    model_name="all-MiniLM-L6-v2")
 
     pdf_vectors = {}
 
